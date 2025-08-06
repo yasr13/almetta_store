@@ -1,0 +1,25 @@
+# codegen.yml
+overwrite: true
+
+schema:
+  - https://store-dglxxmc9.saleor.cloud/graphql/:
+      headers:
+        X-Saleor-Domain: "https://store-dglxxmc9.saleor.cloud"
+        Authorization: "Bearer ${env.SALEOR_TOKEN}"
+        # Authorization: "Bearer tkp_xxx_your_token"
+
+documents:
+  - "src/gql/fragments/**/*.graphql"
+  - "src/gql/operations/**/*.graphql"   # ✅ Pastikan ini benar
+
+generates:
+  src/gql/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      reactApolloVersion: 3
